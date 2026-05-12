@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devis Relance — Relance automatique de devis pour artisans</title>
+  <meta name="description" content="Devis Relance aide les artisans à relancer automatiquement leurs devis par email et SMS pour récupérer des clients déjà intéressés et signer plus de chantiers." />
+
+  <style>
+    :root {
+      --bg: #f5efe4;
+      --paper: #fffaf0;
+      --card: #fffdf8;
+      --ink: #151515;
+      --muted: #6d675e;
+      --line: #e2d6c3;
+      --dark: #111111;
+      --orange: #e59b2f;
+      --orange-dark: #bf7412;
+      --sand: #f0dfc0;
+      --green: #19784d;
+      --red: #b54635;
+      --shadow: 0 22px 70px rgba(30, 22, 10, .12);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 4%, rgba(229,155,47,.22), transparent 32%),
+        radial-gradient(circle at 92% 12%, rgba(17,17,17,.10), transparent 24%),
+        linear-gradient(180deg, #f7f0e5 0%, #f3eadc 100%);
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .38;
+      background-image:
+        linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px);
+      background-size: 38px 38px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.55), transparent 70%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(245,239,228,.86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(226,214,195,.9);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 950;
+      font-size: 21px;
+      letter-spacing: -.045em;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--dark);
+      color: white;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-weight: 900;
+      font-size: 15px;
+      transition: .2s ease;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--dark); color: white; box-shadow: 0 16px 34px rgba(0,0,0,.20); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 42px rgba(0,0,0,.24); }
+    .btn-orange { background: var(--orange); color: #17110a; }
+    .btn-orange:hover { transform: translateY(-2px); background: #d88d25; }
+    .btn-light { background: #fffdf8; color: var(--ink); border: 1px solid var(--line); }
+    .btn-light:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,.08); }
+
+    .hero { padding: 78px 0 54px; position: relative; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(255,253,248,.8);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(25,120,77,.13);
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      font-size: clamp(42px, 6.4vw, 78px);
+      line-height: .92;
+      letter-spacing: -.075em;
+    }
+
+    .hero-lead {
+      max-width: 660px;
+      margin: 0 0 25px;
+      color: var(--muted);
+      font-size: 21px;
+    }
+    .hero-lead strong { color: var(--ink); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 19px; }
+
+    .proofs { display: flex; flex-wrap: wrap; gap: 14px; color: var(--muted); font-size: 14px; }
+    .proofs span::before { content: "✓"; color: var(--green); font-weight: 950; margin-right: 6px; }
+
+    .quote-board {
+      background: rgba(255,253,248,.76);
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      position: relative;
+    }
+    .quote-board::after {
+      content: "RELANCES AUTO";
+      position: absolute;
+      top: -14px;
+      right: 28px;
+      transform: rotate(2deg);
+      background: var(--orange);
+      color: #19110b;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: .07em;
+      box-shadow: 0 12px 25px rgba(0,0,0,.16);
+    }
+
+    .quote-inner {
+      background: #151515;
+      color: white;
+      border-radius: 28px;
+      padding: 23px;
+      overflow: hidden;
+      position: relative;
+    }
+    .quote-inner::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -70px;
+      top: -90px;
+      border-radius: 50%;
+      background: rgba(229,155,47,.28);
+      filter: blur(18px);
+    }
+    .quote-head, .quote-line, .mini-stats { position: relative; }
+    .quote-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+    .quote-head strong { display: block; font-size: 18px; }
+    .quote-head span { color: #bdbdbd; font-size: 13px; }
+    .pill { padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.13); color: #e9e9e9; font-size: 12px; }
+
+    .quote-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      margin-bottom: 11px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .quote-line strong { display: block; font-size: 15px; }
+    .quote-line small { color: #bdbdbd; }
+    .tag { padding: 7px 9px; border-radius: 999px; background: var(--orange); color: #17110a; font-size: 12px; font-weight: 950; }
+    .tag.green { background: #72d69d; }
+    .tag.grey { background: #efefef; color: #222; }
+
+    .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 17px; }
+    .mini-stat { padding: 14px; border-radius: 18px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.10); }
+    .mini-stat strong { display: block; font-size: 25px; letter-spacing: -.04em; }
+    .mini-stat span { color: #bdbdbd; font-size: 12px; }
+
+    section { padding: 74px 0; position: relative; }
+    .section-head { max-width: 770px; margin-bottom: 34px; }
+    .eyebrow { margin-bottom: 10px; color: var(--orange-dark); font-size: 12px; font-weight: 950; text-transform: uppercase; letter-spacing: .12em; }
+    h2 { margin: 0 0 16px; font-size: clamp(32px, 4.4vw, 54px); line-height: 1.02; letter-spacing: -.06em; }
+    .section-head p { margin: 0; font-size: 18px; color: var(--muted); }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .panel {
+      background: rgba(255,253,248,.78);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: 0 16px 44px rgba(0,0,0,.06);
+    }
+    .panel.dark { background: #151515; color: white; border-color: rgba(255,255,255,.12); }
+    .panel h3 { margin: 0 0 18px; font-size: 26px; letter-spacing: -.045em; }
+    .panel ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+    .panel li { display: flex; gap: 10px; align-items: flex-start; color: var(--muted); }
+    .panel.dark li { color: #d2d2d2; }
+    .bad::before { content: "×"; color: var(--red); font-weight: 950; }
+    .good::before { content: "✓"; color: #65d694; font-weight: 950; }
+
+    .roi-box {
+      background: #151515;
+      color: white;
+      border-radius: 34px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .roi-box p { color: #d0d0d0; font-size: 18px; }
+    .calc {
+      display: grid;
+      gap: 12px;
+    }
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.07);
+      border-radius: 18px;
+      padding: 15px 16px;
+    }
+    .calc-row strong { color: var(--orange); }
+    .calc-row.total { background: var(--orange); color: #17110a; border-color: var(--orange); font-weight: 950; }
+    .calc-row.total strong { color: #17110a; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      background: rgba(255,253,248,.78);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: 0 14px 36px rgba(0,0,0,.055);
+    }
+    .card-icon { width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center; background: #fff1d4; font-size: 22px; margin-bottom: 18px; }
+    .card h3 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.035em; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .objection {
+      background: rgba(255,253,248,.55);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .objection-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .objection-card blockquote {
+      margin: 0;
+      font-size: 29px;
+      line-height: 1.1;
+      letter-spacing: -.05em;
+      font-weight: 950;
+    }
+    .objection-card p { margin: 0; color: var(--muted); font-size: 18px; }
+
+    .pricing { background: #151515; color: white; }
+    .pricing .section-head p { color: #d6cbb8; }
+    .pricing .eyebrow { color: #f1c271; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+    .price-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      position: relative;
+      padding: 27px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .price-card.featured {
+      background: #fffdf8;
+      color: var(--ink);
+      transform: translateY(-10px);
+      box-shadow: 0 28px 70px rgba(0,0,0,.30);
+    }
+    .popular {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: var(--orange);
+      color: #17110a;
+      font-size: 12px;
+      font-weight: 950;
+    }
+    .price-card h3 { margin: 0 0 8px; font-size: 25px; letter-spacing: -.045em; }
+    .price-card p { margin: 0 0 20px; opacity: .73; }
+    .price { margin: 6px 0 20px; }
+    .price strong { font-size: 43px; letter-spacing: -.065em; }
+    .price span { opacity: .73; }
+    .features { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 11px; }
+    .features li { display: flex; gap: 10px; align-items: flex-start; }
+    .features li::before { content: "✓"; color: var(--green); font-weight: 950; }
+    .price-card .btn { width: 100%; margin-top: auto; }
+    .launch-note { margin-top: 18px; color: #d6cbb8; font-size: 14px; }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: step; }
+    .step {
+      padding: 23px;
+      border-radius: 26px;
+      background: rgba(255,253,248,.78);
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 36px rgba(0,0,0,.05);
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--dark);
+      color: white;
+      font-weight: 950;
+      margin-bottom: 18px;
+    }
+    .step h3 { margin: 0 0 8px; font-size: 19px; }
+    .step p { margin: 0; color: var(--muted); }
+
+    .diagnostic-wrap {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .diagnostic-panel {
+      background: #151515;
+      color: white;
+      border-radius: 34px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 102px;
+    }
+    .diagnostic-panel p { color: #d0d0d0; }
+    .diagnostic-panel .line { height: 1px; background: rgba(255,255,255,.14); margin: 24px 0; }
+    .diagnostic-info { display: grid; gap: 12px; color: #e7e7e7; }
+
+    form {
+      padding: 27px;
+      border-radius: 34px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .full { grid-column: 1 / -1; }
+    label { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 950; color: #39352f; }
+    input, select, textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 15px;
+      border: 1px solid var(--line);
+      background: #fffaf0;
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(229,155,47,.16);
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .choice-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fffaf0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #4c463c;
+    }
+    .choice input { width: auto; margin-top: 3px; }
+    .form-note { margin: 13px 0 0; color: var(--muted); font-size: 13px; }
+    .privacy { color: var(--muted); font-size: 13px; margin-top: 12px; }
+
+    .success-message {
+      display: none;
+      margin-top: 16px;
+      padding: 15px 16px;
+      border-radius: 16px;
+      background: rgba(25,120,77,.1);
+      border: 1px solid rgba(25,120,77,.25);
+      color: #155f3e;
+      font-weight: 800;
+    }
+
+    footer {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+
+    @media (max-width: 940px) {
+      .nav-links { display: none; }
+      .hero-grid, .before-after, .roi-box, .objection-card, .diagnostic-wrap { grid-template-columns: 1fr; }
+      .cards, .pricing-grid, .steps { grid-template-columns: 1fr; }
+      .price-card.featured { transform: none; }
+      .mini-stats, .form-grid, .choice-grid { grid-template-columns: 1fr; }
+      .diagnostic-panel { position: relative; top: auto; }
+      section { padding: 58px 0; }
+      .hero { padding-top: 54px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#top" class="logo" aria-label="Devis Relance">
+        <span class="logo-mark">↗</span>
+        <span>Devis Relance</span>
+      </a>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#fonctionnement">Fonctionnement</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#diagnostic">Diagnostic</a>
+      </nav>
+      <a class="btn btn-primary" href="#diagnostic">Diagnostic gratuit</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge"><span class="badge-dot"></span> Pour artisans du bâtiment, rénovation, climatisation et services locaux</div>
+          <h1>Vous envoyez des devis. Vos clients ne répondent pas. On les relance.</h1>
+          <p class="hero-lead"><strong>Devis Relance</strong> automatise vos relances par email et SMS pour récupérer des clients déjà intéressés, sans payer plus de publicité.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#diagnostic">Recevoir mon diagnostic gratuit</a>
+            <a class="btn btn-light" href="#tarifs">Voir les tarifs</a>
+          </div>
+          <div class="proofs">
+            <span>Prêt en 24 à 48h</span>
+            <span>Sans CRM compliqué</span>
+            <span>À partir de 29 € HT/mois</span>
+          </div>
+        </div>
+
+        <div class="quote-board" aria-label="Aperçu du suivi Devis Relance">
+          <div class="quote-inner">
+            <div class="quote-head">
+              <div>
+                <strong>Tableau de relance</strong>
+                <span>Les devis chauds ne dorment plus</span>
+              </div>
+              <span class="pill">Aujourd’hui</span>
+            </div>
+            <div class="quote-line">
+              <div><strong>Climatisation maison</strong><small>Martin · 4 800 € · relance J+5</small></div>
+              <span class="tag">SMS prévu</span>
+            </div>
+            <div class="quote-line">
+              <div><strong>Rénovation salle de bain</strong><small>Bernard · 7 200 € · relance J+10</small></div>
+              <span class="tag green">Réponse</span>
+            </div>
+            <div class="quote-line">
+              <div><strong>Peinture appartement</strong><small>Lopez · 2 100 € · relance J+2</small></div>
+              <span class="tag grey">Email envoyé</span>
+            </div>
+            <div class="mini-stats">
+              <div class="mini-stat"><strong>18</strong><span>devis suivis</span></div>
+              <div class="mini-stat"><strong>7</strong><span>réponses</span></div>
+              <div class="mini-stat"><strong>2</strong><span>signatures</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Avant / Après</div>
+          <h2>Le problème n’est pas le devis. C’est le suivi.</h2>
+          <p>Vos prospects ont déjà demandé un prix. Ils sont donc déjà intéressés. Le système sert à ne plus laisser ces opportunités s’éteindre.</p>
+        </div>
+        <div class="before-after">
+          <div class="panel">
+            <h3>Sans Devis Relance</h3>
+            <ul>
+              <li class="bad">Vous envoyez le devis puis vous repartez sur chantier.</li>
+              <li class="bad">Le client compare, hésite, oublie ou signe ailleurs.</li>
+              <li class="bad">Les relances dépendent de votre disponibilité.</li>
+              <li class="bad">Des chantiers chauds sortent du radar.</li>
+            </ul>
+          </div>
+          <div class="panel dark">
+            <h3>Avec Devis Relance</h3>
+            <ul>
+              <li class="good">Vous ajoutez le devis dans un tableau simple.</li>
+              <li class="good">Les relances partent automatiquement au bon moment.</li>
+              <li class="good">Le client reçoit email ou SMS, sans pression.</li>
+              <li class="good">Vous reprenez la main sur les devis en attente.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container roi-box">
+        <div>
+          <div class="eyebrow">Rentabilité</div>
+          <h2>Un seul devis récupéré peut rembourser le système.</h2>
+          <p>Avant de payer plus de publicité, commencez par mieux suivre les clients qui vous ont déjà demandé un devis.</p>
+        </div>
+        <div class="calc" aria-label="Simulation de rentabilité">
+          <div class="calc-row"><span>Pack Pro</span><strong>59 € HT/mois</strong></div>
+          <div class="calc-row"><span>Coût annuel</span><strong>708 € HT/an</strong></div>
+          <div class="calc-row"><span>Exemple de chantier récupéré</span><strong>2 000 €</strong></div>
+          <div class="calc-row total"><span>Conclusion</span><strong>1 chantier peut suffire</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fonctionnement">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Solution</div>
+          <h2>Un mini-commercial automatique pendant que vous êtes sur chantier.</h2>
+          <p>Pas besoin de changer votre logiciel de devis. On met en place un système léger pour suivre, relancer et classer vos opportunités.</p>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="card-icon">✉️</div><h3>Email automatique</h3><p>Des relances sobres et professionnelles envoyées à J+2, J+10 ou selon votre rythme.</p></div>
+          <div class="card"><div class="card-icon">📲</div><h3>SMS de rappel</h3><p>Avec le Pack Pro, un SMS court permet d’obtenir plus facilement une réponse rapide.</p></div>
+          <div class="card"><div class="card-icon">📊</div><h3>Suivi clair</h3><p>Vous voyez les devis en attente, relancés, signés ou perdus dans un tableau simple.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="objection">
+      <div class="container objection-card">
+        <blockquote>“Je peux relancer moi-même.”</blockquote>
+        <p>Oui, bien sûr. Mais le problème n’est pas de savoir relancer. Le problème, c’est de le faire à chaque fois, au bon moment, même quand vous êtes sur chantier, en déplacement, ou déjà sur une nouvelle demande. Devis Relance rend vos relances systématiques.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Mise en place</div>
+          <h2>Installé rapidement, sans usine à gaz.</h2>
+          <p>Vous gardez votre façon de travailler. On ajoute seulement la couche de suivi et de relance qui manque souvent.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><h3>Diagnostic</h3><p>On regarde votre volume de devis, vos relances actuelles et votre besoin.</p></div>
+          <div class="step"><h3>Installation</h3><p>On prépare votre tableau, vos messages et vos règles de relance.</p></div>
+          <div class="step"><h3>Relances</h3><p>Les emails et SMS partent automatiquement selon votre pack.</p></div>
+          <div class="step"><h3>Suivi</h3><p>Vous voyez les devis chauds, signés, perdus ou à rappeler.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="tarifs">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Tarifs de lancement</div>
+          <h2>Des prix accessibles pour les premiers artisans accompagnés.</h2>
+          <p>Vous commencez simple, vous mesurez les retours, puis vous ajoutez les SMS ou les options avancées si nécessaire.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <h3>Essentiel</h3>
+            <p>Pour tester la relance automatique sans changer vos habitudes.</p>
+            <div class="price"><strong>99 €</strong><br><span>HT installation puis 29 € HT/mois</span></div>
+            <ul class="features">
+              <li>Tableau de suivi simple</li>
+              <li>Relances email automatiques</li>
+              <li>3 relances programmées</li>
+              <li>Arrêt si devis signé ou perdu</li>
+              <li>Formation rapide</li>
+            </ul>
+            <a href="#diagnostic" class="btn btn-light">Tester simplement</a>
+          </article>
+
+          <article class="price-card featured">
+            <span class="popular">Recommandé</span>
+            <h3>Pro</h3>
+            <p>Pour récupérer plus de réponses avec email et SMS.</p>
+            <div class="price"><strong>249 €</strong><br><span>HT installation puis 59 € HT/mois</span></div>
+            <ul class="features">
+              <li>Tout le Pack Essentiel</li>
+              <li>Relances email + SMS</li>
+              <li>5 relances programmées</li>
+              <li>Messages adaptés à votre métier</li>
+              <li>Mini-rapport mensuel</li>
+            </ul>
+            <a href="#diagnostic" class="btn btn-orange">Je veux le Pack Pro</a>
+          </article>
+
+          <article class="price-card">
+            <h3>Premium</h3>
+            <p>Pour les artisans avec volume, anciens devis et suivi avancé.</p>
+            <div class="price"><strong>490 €</strong><br><span>HT installation puis 99 € HT/mois</span></div>
+            <ul class="features">
+              <li>Relance des anciens devis</li>
+              <li>Demande d’avis Google</li>
+              <li>Relance entretien annuel</li>
+              <li>Plusieurs utilisateurs</li>
+              <li>Reporting avancé</li>
+            </ul>
+            <a href="#diagnostic" class="btn btn-light">Configuration avancée</a>
+          </article>
+        </div>
+        <p class="launch-note">Ces tarifs sont volontairement accessibles pour les premiers clients artisans. Les offres pourront évoluer ensuite.</p>
+      </div>
+    </section>
+
+    <section id="diagnostic">
+      <div class="container diagnostic-wrap">
+        <aside class="diagnostic-panel">
+          <div class="eyebrow">Diagnostic gratuit</div>
+          <h2>Estimez vos devis mieux suivis.</h2>
+          <p>Répondez à quelques questions rapides. On vous recontacte avec une recommandation adaptée à votre activité.</p>
+          <div class="line"></div>
+          <div class="diagnostic-info">
+            <span>📩 contact@devisrelance.fr</span>
+            <span>⚡ Réponse rapide</span>
+            <span>🔧 Installation possible en 24 à 48h</span>
+            <span>🔒 Données utilisées uniquement pour votre demande</span>
+          </div>
+        </aside>
+
+        <!-- IMPORTANT : remplace l'URL ci-dessous par ton URL Formspree réelle, par exemple https://formspree.io/f/abcdwxyz -->
+        <form id="diagnostic-form" action="https://formspree.io/f/mqennavj" method="POST">
+          <input type="hidden" name="_subject" value="Nouveau diagnostic Devis Relance" />
+          <input type="hidden" name="source" value="Landing page Devis Relance" />
+
+          <div class="form-grid">
+            <div>
+              <label for="nom">Votre nom *</label>
+              <input id="nom" name="Nom" type="text" placeholder="Jean Martin" required />
+            </div>
+            <div>
+              <label for="entreprise">Entreprise *</label>
+              <input id="entreprise" name="Entreprise" type="text" placeholder="Martin Climatisation" required />
+            </div>
+            <div>
+              <label for="metier">Métier *</label>
+              <input id="metier" name="Métier" type="text" placeholder="Climatisation, rénovation, peinture..." required />
+            </div>
+            <div>
+              <label for="ville">Ville / secteur *</label>
+              <input id="ville" name="Ville ou secteur" type="text" placeholder="Marseille, Aubagne, Aix..." required />
+            </div>
+            <div>
+              <label for="email">Email professionnel *</label>
+              <input id="email" name="Email" type="email" placeholder="contact@entreprise.fr" required />
+            </div>
+            <div>
+              <label for="telephone">Téléphone *</label>
+              <input id="telephone" name="Téléphone" type="tel" placeholder="06 00 00 00 00" required />
+            </div>
+
+            <div>
+              <label for="volume">Combien de devis envoyez-vous par mois ? *</label>
+              <select id="volume" name="Nombre de devis par mois" required>
+                <option value="">Choisir une réponse</option>
+                <option>Moins de 10</option>
+                <option>10 à 30</option>
+                <option>30 à 60</option>
+                <option>Plus de 60</option>
+                <option>Je ne sais pas exactement</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="montant">Montant moyen d’un devis *</label>
+              <select id="montant" name="Montant moyen d'un devis" required>
+                <option value="">Choisir une réponse</option>
+                <option>Moins de 1 000 €</option>
+                <option>1 000 à 3 000 €</option>
+                <option>3 000 à 7 000 €</option>
+                <option>Plus de 7 000 €</option>
+                <option>Variable selon les chantiers</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="relance">Relancez-vous systématiquement vos devis ? *</label>
+              <select id="relance" name="Relance actuelle" required>
+                <option value="">Choisir une réponse</option>
+                <option>Oui, toujours</option>
+                <option>Souvent</option>
+                <option>Parfois</option>
+                <option>Rarement</option>
+                <option>Non, presque jamais</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="pack">Pack qui vous intéresse</label>
+              <select id="pack" name="Pack intéressé">
+                <option>Je ne sais pas encore</option>
+                <option>Essentiel — 99 € HT + 29 € HT/mois</option>
+                <option>Pro — 249 € HT + 59 € HT/mois</option>
+                <option>Premium — 490 € HT + 99 € HT/mois</option>
+              </select>
+            </div>
+
+            <div class="full">
+              <label>Comment relancez-vous aujourd’hui ?</label>
+              <div class="choice-grid">
+                <label class="choice"><input type="checkbox" name="Méthodes actuelles" value="Téléphone" /> Téléphone</label>
+                <label class="choice"><input type="checkbox" name="Méthodes actuelles" value="SMS" /> SMS</label>
+                <label class="choice"><input type="checkbox" name="Méthodes actuelles" value="Email" /> Email</label>
+                <label class="choice"><input type="checkbox" name="Méthodes actuelles" value="WhatsApp" /> WhatsApp</label>
+                <label class="choice"><input type="checkbox" name="Méthodes actuelles" value="Agenda" /> Je note dans un agenda</label>
+                <label class="choice"><input type="checkbox" name="Méthodes actuelles" value="Pas vraiment" /> Je ne relance pas vraiment</label>
+              </div>
+            </div>
+
+            <div class="full">
+              <label for="message">Une précision sur votre activité ?</label>
+              <textarea id="message" name="Message" placeholder="Exemple : je fais beaucoup de devis mais je n’ai pas le temps de relancer..."></textarea>
+            </div>
+
+            <div class="full">
+              <button class="btn btn-primary" type="submit">Recevoir mon diagnostic gratuit</button>
+              <p class="privacy">Vos informations sont utilisées uniquement pour répondre à votre demande. Aucune revente, aucun spam.</p>
+              <p class="form-note">Après envoi, vous recevrez les diagnostics dans Formspree et par email. Vous pourrez aussi les exporter en CSV.</p>
+              <div id="success-message" class="success-message">Merci, votre diagnostic a bien été envoyé. Nous revenons vers vous rapidement.</div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 Devis Relance. Tous droits réservés.</span>
+      <span>Relance automatique de devis pour artisans.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Envoi AJAX optionnel : garde l'utilisateur sur la page après l'envoi Formspree.
+    // Si l'URL Formspree n'est pas remplacée, le formulaire ne pourra pas envoyer les données.
+    const form = document.getElementById('diagnostic-form');
+    const success = document.getElementById('success-message');
+
+    form.addEventListener('submit', async function (event) {
+      const action = form.getAttribute('action');
+      if (!action || action.includes('REMPLACE_PAR_TON_ID_FORMSPREE')) {
+        alert("Il faut remplacer l'URL Formspree dans le code avant de mettre le site en ligne.");
+        event.preventDefault();
+        return;
+      }
+
+      event.preventDefault();
+      const data = new FormData(form);
+      try {
+        const response = await fetch(action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.reset();
+          success.style.display = 'block';
+        } else {
+          alert("L'envoi n'a pas fonctionné. Vous pouvez nous écrire à contact@devisrelance.fr");
+        }
+      } catch (error) {
+        alert("Erreur de connexion. Vous pouvez nous écrire à contact@devisrelance.fr");
+      }
+    });
+  </script>
+</body>
+</html>
