@@ -4,87 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Devis Relance | Relance automatique de devis pour artisans</title>
-  <meta name="description" content="Devis Relance aide les artisans à relancer leurs devis par email et SMS avec un suivi professionnel, simple et rapide à installer." />
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://formspree.io; form-action https://formspree.io; upgrade-insecure-requests" />
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()" />
+  <meta name="description" content="Automatisez vos relances de devis par email et SMS, calculez vos devis récupérables et démarrez avec paiement sécurisé Stripe." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; upgrade-insecure-requests" />
   <link rel="canonical" href="https://devisrelance.fr/" />
-  <meta property="og:title" content="Devis Relance | Relance automatique de devis pour artisans" />
-  <meta property="og:description" content="Suivi de devis, relances email et SMS pour artisans du bâtiment, rénovation, climatisation et services locaux." />
-  <meta property="og:url" content="https://devisrelance.fr/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="fr_FR" />
   <link rel="stylesheet" href="styles.css" />
-  <script type="application/ld+json">
-    {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://devisrelance.fr/#organization","name":"Devis Relance","url":"https://devisrelance.fr/","email":"contact@devisrelance.fr"},{"@type":"WebSite","@id":"https://devisrelance.fr/#website","url":"https://devisrelance.fr/","name":"Devis Relance","inLanguage":"fr-FR","publisher":{"@id":"https://devisrelance.fr/#organization"}},{"@type":"Service","@id":"https://devisrelance.fr/#service","name":"Relance automatique de devis pour artisans","serviceType":"Automatisation de relance de devis","provider":{"@id":"https://devisrelance.fr/#organization"},"areaServed":"FR","audience":{"@type":"Audience","audienceType":"Artisans du bâtiment, rénovation, climatisation et services locaux"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://devisrelance.fr/"}]}]}
-  </script>
 </head>
 <body>
-  <div class="cursor-glow" aria-hidden="true"></div>
   <header>
     <div class="container nav">
-      <a href="index.html" class="logo" aria-label="Devis Relance">
-        <span class="logo-mark">DR</span>
-        <span>Devis Relance</span>
-      </a>
+      <a href="index.html" class="logo"><span class="logo-mark">DR</span><span>Devis Relance</span></a>
       <nav class="nav-links" aria-label="Navigation principale">
         <a class="active" href="index.html">Accueil</a>
-        <a href="relance-devis-artisan.html">Solutions</a>
-        <a href="fonctionnement.html">Fonctionnement</a>
-        <a href="securite.html">Sécurité</a>
         <a href="tarifs.html">Tarifs</a>
-        <a href="faq.html">FAQ</a>
+        <a href="paiement.html">Paiement</a>
+        <a href="diagnostic.html">Diagnostic</a>
       </nav>
-      <a class="btn btn-primary" href="#simulateur">Calculer mes devis</a>
+      <a class="btn btn-primary" href="tarifs.html">Démarrer</a>
     </div>
   </header>
 
   <main>
-    <section class="page-hero">
+    <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="badge"><span class="badge-dot"></span> Pour artisans du bâtiment, rénovation, climatisation et services locaux</div>
+          <span class="kicker">Artisans du bâtiment, rénovation et services locaux</span>
           <h1>Transformez vos devis envoyés en chantiers signés.</h1>
-          <p class="lead"><strong>Devis Relance</strong> installe un système professionnel de suivi, relance email et SMS pour récupérer les clients déjà intéressés, sans CRM lourd ni publicité supplémentaire.</p>
+          <p class="lead">Devis Relance automatise vos relances email et SMS pour récupérer les clients déjà intéressés, sans CRM lourd ni publicité supplémentaire.</p>
           <div class="actions">
             <a class="btn btn-primary" href="#simulateur">Calculer mes devis récupérables</a>
-            <a class="btn btn-light" href="fonctionnement.html">Comprendre le système</a>
+            <a class="btn btn-light" href="tarifs.html">Voir les packs</a>
           </div>
-          <div class="proofs">
-            <span>Prêt en 24 à 48h</span>
-            <span>Sans CRM compliqué</span>
-            <span>À partir de 29 € HT/mois</span>
-          </div>
+          <div class="proofs"><span>Paiement sécurisé Stripe</span><span>Premier mois satisfait ou remboursé</span><span>Installation possible en 24 à 48h</span></div>
         </div>
-
-        <div class="dashboard" aria-label="Aperçu du suivi Devis Relance">
-          <div class="dashboard-inner">
-            <div class="dashboard-head">
-              <div>
-                <strong>Tableau de relance</strong>
-                <span>Les devis chauds ne dorment plus</span>
-              </div>
-              <span class="pill">Aujourd’hui</span>
-            </div>
-            <div class="quote-line">
-              <div><strong>Climatisation maison</strong><small>Martin · 4 800 € · relance J+5</small></div>
-              <span class="tag">SMS prévu</span>
-            </div>
-            <div class="quote-line">
-              <div><strong>Rénovation salle de bain</strong><small>Bernard · 7 200 € · relance J+10</small></div>
-              <span class="tag green">Réponse</span>
-            </div>
-            <div class="quote-line">
-              <div><strong>Peinture appartement</strong><small>Lopez · 2 100 € · relance J+2</small></div>
-              <span class="tag grey">Email envoyé</span>
-            </div>
-            <div class="mini-stats">
-              <div class="mini-stat"><strong>18</strong><span>devis suivis</span></div>
-              <div class="mini-stat"><strong>7</strong><span>réponses</span></div>
-              <div class="mini-stat"><strong>2</strong><span>signatures</span></div>
-            </div>
-          </div>
+        <div class="panel dark">
+          <h2>Avant d’acheter plus de leads</h2>
+          <p>Relancez les prospects qui ont déjà demandé un prix. Ils sont plus chauds qu’un nouveau contact publicitaire.</p>
+          <ul class="list"><li>Emails automatiques</li><li>SMS de rappel</li><li>Tableau de suivi simple</li><li>Arrêt si devis signé ou perdu</li></ul>
         </div>
       </div>
     </section>
@@ -92,33 +47,15 @@
     <section class="calculator-section" id="simulateur">
       <div class="container calculator" data-calculator>
         <div class="calculator-copy">
-          <div>
-            <span class="kicker">Simulateur</span>
-            <h2>Combien peuvent valoir vos devis non relancés ?</h2>
-            <p class="lead">Le calcul reste volontairement prudent : il montre ce qu’un seul devis récupéré peut changer par rapport au coût d’un abonnement.</p>
-          </div>
-          <div class="guarantee">
-            <span class="guarantee-mark">30j</span>
-            <div>
-              <strong>Premier mois satisfait ou remboursé.</strong>
-              <p>Vous testez le système sur de vrais devis. Si l’accompagnement ne vous convient pas, le premier mois est remboursé.</p>
-            </div>
-          </div>
+          <span class="kicker">Simulateur</span>
+          <h2>Combien peuvent valoir vos devis non relancés ?</h2>
+          <p class="lead">Hypothèse prudente : le simulateur estime seulement une petite partie des devis sans réponse comme récupérable.</p>
         </div>
         <div class="calculator-tool">
           <div class="calc-fields">
-            <div>
-              <label for="calc-quotes">Devis envoyés / mois</label>
-              <input id="calc-quotes" data-calc-quotes type="number" min="1" value="20" />
-            </div>
-            <div>
-              <label for="calc-value">Montant moyen</label>
-              <input id="calc-value" data-calc-value type="number" min="100" step="100" value="2500" />
-            </div>
-            <div>
-              <label for="calc-missed">Devis sans réponse</label>
-              <input id="calc-missed" data-calc-missed type="number" min="1" value="4" />
-            </div>
+            <div><label>Devis envoyés / mois</label><input data-calc-quotes type="number" min="1" value="20" /></div>
+            <div><label>Montant moyen</label><input data-calc-value type="number" min="100" step="100" value="2500" /></div>
+            <div><label>Devis sans réponse</label><input data-calc-missed type="number" min="1" value="4" /></div>
           </div>
           <div class="calc-result">
             <div class="result-card gold"><strong data-calc-potential>0 €</strong><span>potentiel mensuel prudent</span></div>
@@ -126,115 +63,21 @@
             <div class="result-card"><strong data-calc-months>0 mois</strong><span>de Pack Pro couverts par 1 devis</span></div>
           </div>
           <p class="calc-message" data-calc-message></p>
-          <div class="actions">
-            <a class="btn btn-primary" href="diagnostic.html">Obtenir mon estimation complète</a>
-            <a class="btn btn-light" href="tarifs.html">Comparer les packs</a>
-          </div>
+          <div class="actions"><a class="btn btn-primary" href="tarifs.html">Choisir mon pack</a><a class="btn btn-light" href="diagnostic.html">Recevoir une estimation</a></div>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="container metric-band">
-        <div><span>Système premium, usage simple</span><strong>Une méthode de relance cadrée pour artisans exigeants.</strong></div>
-        <div><strong>24-48h</strong><span>mise en place possible</span></div>
-        <div><strong>3 à 5</strong><span>relances programmées</span></div>
-        <div><strong>Email + SMS</strong><span>selon votre pack</span></div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container case-study">
-        <div class="section-head">
-          <span class="kicker">Simulation réaliste</span>
-          <h2>Un artisan climatisation peut rentabiliser le système très vite.</h2>
-          <p>Ce n’est pas présenté comme un témoignage client : c’est une projection sobre pour aider le prospect à se situer.</p>
-          <div class="actions"><a class="btn btn-primary" href="diagnostic.html">Faire mon diagnostic</a></div>
-        </div>
-        <div class="case-panel">
-          <h3>Exemple : installateur climatisation</h3>
-          <div class="case-lines">
-            <div class="case-line"><span>Devis envoyés</span><strong>24 / mois</strong></div>
-            <div class="case-line"><span>Sans réponse</span><strong>8 devis</strong></div>
-            <div class="case-line"><span>Relances automatisées</span><strong>Email + SMS</strong></div>
-            <div class="case-line"><span>1 chantier récupéré</span><strong>3 800 €</strong></div>
-            <div class="case-line"><span>Impact</span><strong>Pack Pro couvert plusieurs mois</strong></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container grid-2">
-        <div class="panel dark">
-          <span class="kicker">Avant d’acheter plus de leads</span>
-          <h2>Relancez les prospects qui ont déjà demandé un prix.</h2>
-          <p>Un nouveau lead publicitaire coûte de l’argent et ne vous connaît pas encore. Un devis déjà envoyé vient d’une personne qui a déjà expliqué son besoin.</p>
-        </div>
-        <div class="card">
-          <h3>Pourquoi c’est plus rentable</h3>
-          <ul class="list">
-            <li>Le prospect a déjà montré une intention claire</li>
-            <li>Vous avez déjà fait le travail de chiffrage</li>
-            <li>La relance coûte moins cher qu’une nouvelle campagne</li>
-            <li>Le suivi améliore votre image professionnelle</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="section-head">
-          <span class="kicker">Objections fréquentes</span>
-          <h2>Les freins qui bloquent souvent l’abonnement.</h2>
-          <p>Le site répond clairement aux doutes avant même le premier échange.</p>
-        </div>
-        <div class="objection-grid">
-          <div class="objection-card"><h3>“Je peux relancer moi-même.”</h3><p>Oui. Le sujet est surtout de le faire à chaque fois, au bon moment, même pendant les chantiers.</p></div>
-          <div class="objection-card"><h3>“Je ne veux pas embêter mes clients.”</h3><p>Les messages sont sobres, espacés et pensés pour obtenir une réponse sans pression.</p></div>
-          <div class="objection-card"><h3>“Je n’ai pas de CRM.”</h3><p>Justement : Devis Relance reste léger et ne vous force pas à changer votre méthode de travail.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="section-head">
-          <span class="kicker">Accès rapide</span>
-          <h2>Un site clair, chaque sujet à sa place.</h2>
-          <p>Vous pouvez maintenant visiter les pages comme un vrai site professionnel, sans devoir descendre une page interminable.</p>
-        </div>
-        <div class="grid-3">
-          <a class="card card-link" href="relance-devis-artisan.html"><h3>Relance devis artisan</h3><p>La page dédiée aux recherches principales autour du suivi de devis.</p></a>
-          <a class="card card-link" href="fonctionnement.html"><h3>Fonctionnement</h3><p>La méthode, les onglets métier et le déroulé de mise en place.</p></a>
-          <a class="card card-link" href="diagnostic.html"><h3>Diagnostic</h3><p>Le formulaire court pour estimer les devis mieux suivis.</p></a>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="section-head">
-          <span class="kicker">Recherches métier</span>
-          <h2>Des pages utiles pour les artisans qui cherchent une solution précise.</h2>
-          <p>Chaque page cible une intention de recherche claire et renvoie vers le diagnostic quand le besoin est confirmé.</p>
-        </div>
-        <div class="grid-3">
-          <a class="card card-link" href="relance-devis-artisan.html"><h3>Relance devis artisan</h3><p>Pour comprendre le suivi automatique des devis quand on travaille seul ou en petite équipe.</p></a>
-          <a class="card card-link" href="relance-devis-batiment-renovation.html"><h3>Bâtiment & rénovation</h3><p>Pour les devis travaux, peinture, salle de bain, rénovation intérieure ou services locaux.</p></a>
-          <a class="card card-link" href="relance-devis-climatisation.html"><h3>Climatisation</h3><p>Pour les devis saisonniers, pompes à chaleur, remplacement et entretien.</p></a>
-        </div>
+      <div class="container guarantee">
+        <span class="guarantee-mark">30j</span>
+        <div><strong>Premier mois satisfait ou remboursé.</strong><p>Vous testez le système sur de vrais devis. Si l’accompagnement ne vous convient pas, le premier mois est remboursé.</p></div>
+        <a class="btn btn-gold" href="paiement.html">Paiement sécurisé</a>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container footer-inner">
-      <span>© 2026 Devis Relance. Tous droits réservés.</span>
-      <span>Relance automatique de devis pour artisans.</span>
-    </div>
-  </footer>
+  <footer><div class="container footer-inner"><span>© 2026 Devis Relance.</span><span>Paiement sécurisé par Stripe.</span></div></footer>
   <script src="script.js"></script>
 </body>
 </html>
