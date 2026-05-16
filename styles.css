@@ -216,6 +216,26 @@ textarea { min-height: 120px; resize: vertical; }
 
 footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--muted); background: #f8f7f3; }
 .footer-inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 14px; }
+.footer-links a { color: #454b53; font-weight: 800; }
+.legal-content {
+  display: grid;
+  gap: 18px;
+}
+.legal-content .card h2 {
+  font-size: 28px;
+}
+.legal-content p {
+  margin: 0 0 10px;
+  color: var(--muted);
+}
+.legal-content strong { color: var(--ink); }
+.legal-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+.legal-list li { margin: 8px 0; }
 
 @media (max-width: 940px) {
   .nav-links { display: none; }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tarifs et paiement sécurisé | Devis Relance</title>
+  <title>Tarifs et abonnement | Devis Relance</title>
   <meta name="description" content="Choisissez un pack Devis Relance et démarrez avec paiement initial puis abonnement mensuel sécurisé par Stripe." />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; upgrade-insecure-requests" />
   <link rel="canonical" href="https://devisrelance.fr/tarifs.html" />
@@ -14,17 +14,17 @@
     <div class="container nav">
       <a href="index.html" class="logo"><span class="logo-mark">DR</span><span>Devis Relance</span></a>
       <nav class="nav-links" aria-label="Navigation principale">
-        <a href="index.html">Accueil</a><a class="active" href="tarifs.html">Tarifs</a><a href="paiement.html">Paiement</a><a href="diagnostic.html">Diagnostic</a>
+        <a href="index.html">Accueil</a><a class="active" href="tarifs.html">Tarifs</a><a href="diagnostic.html">Diagnostic</a>
       </nav>
-      <a class="btn btn-gold" href="paiement.html">Payer et démarrer</a>
+      <a class="btn btn-gold" href="#formules">Payer et démarrer</a>
     </div>
   </header>
   <main>
     <section class="hero">
       <div class="container">
         <span class="kicker">Tarifs de lancement</span>
-        <h1>Payez l’installation, puis l’abonnement mensuel démarre automatiquement.</h1>
-        <p class="lead">Le paiement se fait sur Stripe Checkout : carte bancaire, Apple Pay, Google Pay et autres moyens selon configuration Stripe.</p>
+        <h1>Choisissez votre formule et démarrez en paiement sécurisé.</h1>
+        <p class="lead">Chaque formule inclut un paiement d’installation puis un abonnement mensuel. Le règlement se fait sur Stripe Checkout, une page sécurisée dédiée au paiement.</p>
       </div>
     </section>
 
@@ -32,37 +32,47 @@
       <div class="container guarantee">
         <span class="guarantee-mark">30j</span>
         <div><strong>Premier mois satisfait ou remboursé.</strong><p>Simple et rassurant : vous démarrez, on installe, et vous gardez la possibilité d’être remboursé du premier mois si ce n’est pas adapté.</p></div>
-        <a class="btn btn-gold" href="paiement.html">Voir le paiement</a>
+        <a class="btn btn-gold" href="#formules">Choisir une formule</a>
       </div>
     </section>
 
-    <section>
+    <section id="formules">
       <div class="container grid-3">
         <article class="price-card">
           <h3>Essentiel</h3><p>Pour ne plus oublier vos devis.</p>
           <div class="price"><strong>99 €</strong><br><span>HT installation puis 29 € HT/mois</span></div>
           <ul class="features"><li>Tableau de suivi simple</li><li>Relances email automatiques</li><li>3 relances programmées</li><li>Formation rapide</li></ul>
-          <a href="paiement.html#essentiel" class="btn btn-light">Payer et démarrer Essentiel</a>
-          <p class="payment-note">Paiement sécurisé par Stripe.</p>
+          <a href="https://buy.stripe.com/test_8x228q7kPgKyf85ayD6g801" class="btn btn-light" data-stripe-plan="essentiel">Payer et démarrer Essentiel</a>
+          <p class="payment-note">Paiement sécurisé par Stripe. En continuant, vous acceptez les <a href="conditions-abonnement.html">conditions d’abonnement</a>.</p>
         </article>
         <article class="price-card featured">
           <h3>Pro</h3><p>Pour obtenir plus de réponses avec email + SMS.</p>
           <div class="price"><strong>249 €</strong><br><span>HT installation puis 59 € HT/mois</span></div>
           <ul class="features"><li>Tout le Pack Essentiel</li><li>Relances email + SMS</li><li>5 relances programmées</li><li>Mini-rapport mensuel</li></ul>
-          <a href="paiement.html#pro" class="btn btn-gold">Payer et démarrer Pro</a>
-          <p class="payment-note">Pack recommandé.</p>
+          <a href="https://buy.stripe.com/test_fZubJ0fRl1PEe41dKP6g802" class="btn btn-gold" data-stripe-plan="pro">Payer et démarrer Pro</a>
+          <p class="payment-note">Pack recommandé. En continuant, vous acceptez les <a href="conditions-abonnement.html">conditions d’abonnement</a>.</p>
         </article>
         <article class="price-card">
           <h3>Premium</h3><p>Pour exploiter anciens devis, avis et entretiens.</p>
           <div class="price"><strong>490 €</strong><br><span>HT installation puis 99 € HT/mois</span></div>
           <ul class="features"><li>Relance des anciens devis</li><li>Demande d’avis Google</li><li>Relance entretien annuel</li><li>Reporting avancé</li></ul>
-          <a href="paiement.html#premium" class="btn btn-light">Payer et démarrer Premium</a>
-          <p class="payment-note">Pour les volumes plus élevés.</p>
+          <a href="https://buy.stripe.com/test_7sYcN448Dbqegc9eOT6g803" class="btn btn-light" data-stripe-plan="premium">Payer et démarrer Premium</a>
+          <p class="payment-note">Pour les volumes plus élevés. En continuant, vous acceptez les <a href="conditions-abonnement.html">conditions d’abonnement</a>.</p>
         </article>
       </div>
     </section>
   </main>
-  <footer><div class="container footer-inner"><span>© 2026 Devis Relance.</span><span>Stripe Checkout + abonnement mensuel.</span></div></footer>
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 Devis Relance.</span>
+      <nav class="footer-links" aria-label="Liens légaux">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Confidentialité</a>
+        <a href="conditions-abonnement.html">Conditions</a>
+        <a href="resiliation.html">Résiliation</a>
+      </nav>
+    </div>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>

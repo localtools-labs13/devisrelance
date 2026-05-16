@@ -48,16 +48,10 @@ document.querySelectorAll("[data-stripe-plan]").forEach(function (link) {
 
   if (stripeUrl) {
     link.href = stripeUrl;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
     return;
   }
 
   link.href = "diagnostic.html?pack=" + encodeURIComponent(plan);
-  link.addEventListener("click", function (event) {
-    event.preventDefault();
-    alert("Le paiement Stripe est prêt côté site. Il reste à coller le Payment Link Stripe du pack " + plan + " dans script.js.");
-  });
 });
 
 const form = document.getElementById("diagnostic-form");
