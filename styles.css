@@ -423,6 +423,122 @@ input, select, textarea {
 textarea { min-height: 120px; resize: vertical; }
 .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .success-message { display: none; margin-top: 16px; padding: 15px 16px; border-radius: 8px; background: rgba(15,118,110,.1); color: var(--green-dark); font-weight: 800; }
+.error-message { background: rgba(180,35,24,.1) !important; color: #b42318 !important; }
+.config-alert, .dashboard-alert {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(45,108,223,.24);
+  background: rgba(45,108,223,.08);
+  color: #1d4ed8;
+  font-weight: 800;
+}
+.form-help { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+
+.dashboard-hero { padding-bottom: 38px; }
+.dashboard-head {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: end;
+}
+.plan-card, .metric-card, .quote-card, .access-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.9);
+  padding: 20px;
+  box-shadow: 0 16px 36px rgba(21,25,30,.055);
+}
+.plan-card span, .metric-card span, .access-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+.plan-card strong, .metric-card strong, .access-card strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 30px;
+  line-height: 1;
+}
+.plan-card p { margin: 10px 0 0; color: var(--muted); }
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.dashboard-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.tab-btn {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.85);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 11px 14px;
+  cursor: pointer;
+  font-weight: 900;
+}
+.tab-btn.active {
+  background: var(--dark);
+  color: white;
+  border-color: var(--dark);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.quote-list { display: grid; gap: 12px; }
+.quote-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+.quote-card strong { display: block; font-size: 18px; }
+.quote-card span { display: block; color: var(--muted); font-size: 14px; }
+.quote-meta { text-align: right; }
+.quote-meta em {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--green-dark);
+  font-style: normal;
+  font-weight: 900;
+}
+.quote-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+}
+.quote-actions button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 12px;
+  cursor: pointer;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 900;
+}
+.empty-state {
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  color: var(--muted);
+  background: rgba(255,255,255,.6);
+}
+.access-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
 
 footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--muted); background: #f8fafc; }
 .footer-inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
@@ -451,9 +567,10 @@ footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--muted)
   .nav-links { display: none; }
   .nav-actions { margin-left: auto; }
   .login-link { display: none; }
-  .hero-grid, .grid-2, .grid-3, .grid-4, .calculator, .calc-fields, .calc-result, .guarantee, .payment-layout, .payment-option, .form-grid, .positioning-panel, .comparison-row, .template-grid, .feature-grid, .faq-grid, .trust-grid, .signal-grid, .preview-metrics, .account-layout { grid-template-columns: 1fr; }
+  .hero-grid, .grid-2, .grid-3, .grid-4, .calculator, .calc-fields, .calc-result, .guarantee, .payment-layout, .payment-option, .form-grid, .positioning-panel, .comparison-row, .template-grid, .feature-grid, .faq-grid, .trust-grid, .signal-grid, .preview-metrics, .account-layout, .dashboard-head, .metric-grid, .dashboard-layout, .access-grid, .quote-card { grid-template-columns: 1fr; }
   .dashboard-preview { max-width: none; margin-left: 0; }
   .hero { padding: 48px 0 58px; }
+  .quote-meta { text-align: left; }
 }
 @media (max-width: 560px) {
   .btn { width: 100%; }
