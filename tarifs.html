@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tarifs et abonnement | Devis Relance</title>
-  <meta name="description" content="Choisissez un pack Devis Relance et démarrez avec paiement initial puis abonnement mensuel sécurisé par Stripe." />
+  <title>Tarifs abonnement | Devis Relance</title>
+  <meta name="description" content="Abonnements Devis Relance : compte gratuit, Découverte, Pro et Premium pour automatiser vos relances de devis avec contrôle humain." />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; upgrade-insecure-requests" />
   <link rel="canonical" href="https://devisrelance.fr/tarifs.html" />
   <link rel="stylesheet" href="styles.css" />
@@ -14,51 +14,119 @@
     <div class="container nav">
       <a href="index.html" class="logo"><span class="logo-mark">DR</span><span>Devis Relance</span></a>
       <nav class="nav-links" aria-label="Navigation principale">
-        <a href="index.html">Accueil</a><a class="active" href="tarifs.html">Tarifs</a><a href="diagnostic.html">Diagnostic</a>
+        <a href="index.html">Accueil</a><a href="index.html#fonctionnalites">Fonctionnalités</a><a href="modeles-email-relance-devis.html">Ressources</a><a class="active" href="tarifs.html">Tarifs</a><a href="index.html#faq">FAQ</a>
       </nav>
-      <a class="btn btn-gold" href="#formules">Payer et démarrer</a>
+      <div class="nav-actions"><a class="login-link" href="compte.html#connexion">Connexion</a><a class="btn btn-gold" href="compte.html">Créer un compte</a></div>
     </div>
   </header>
   <main>
     <section class="hero">
       <div class="container">
-        <span class="kicker">Tarifs de lancement</span>
-        <h1>Choisissez votre formule et démarrez en paiement sécurisé.</h1>
-        <p class="lead">Chaque formule inclut un paiement d’installation puis un abonnement mensuel. Le règlement se fait sur Stripe Checkout, une page sécurisée dédiée au paiement.</p>
+        <span class="kicker">Abonnements sans frais d’installation</span>
+        <h1>Un compte gratuit, puis un abonnement simple si vous voulez automatiser plus de devis.</h1>
+        <p class="lead">Des prix proches des outils autonomes, mais avec un avantage clair : une solution française, des relances adaptées aux artisans et un contrôle humain disponible.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container positioning-panel">
+        <div>
+          <span class="kicker">Positionnement</span>
+          <h2>Un peu plus cher qu’un outil seul, beaucoup plus rassurant à utiliser.</h2>
+          <p>Le compte gratuit permet de tester. Les abonnements payants ajoutent le volume, les SMS, les modèles avancés, le suivi et la validation humaine pour éviter les relances maladroites.</p>
+        </div>
+        <div class="value-stack">
+          <span>Compte gratuit sans carte bancaire</span>
+          <span>Abonnement mensuel sans engagement</span>
+          <span>Contrôle humain disponible</span>
+        </div>
       </div>
     </section>
 
     <section>
       <div class="container guarantee">
-        <span class="guarantee-mark">30j</span>
-        <div><strong>Premier mois satisfait ou remboursé.</strong><p>Simple et rassurant : vous démarrez, on installe, et vous gardez la possibilité d’être remboursé du premier mois si ce n’est pas adapté.</p></div>
-        <a class="btn btn-gold" href="#formules">Choisir une formule</a>
+        <span class="guarantee-mark">0€</span>
+        <div><strong>Commencez gratuitement.</strong><p>Créez un compte sans carte bancaire, testez sur quelques devis, puis passez à l’abonnement quand le besoin est clair.</p></div>
+        <a class="btn btn-gold" href="compte.html">Créer mon compte</a>
       </div>
     </section>
 
     <section id="formules">
-      <div class="container grid-3">
+      <div class="container grid-4">
         <article class="price-card">
-          <h3>Essentiel</h3><p>Pour ne plus oublier vos devis.</p>
-          <div class="price"><strong>99 €</strong><br><span>HT installation puis 29 € HT/mois</span></div>
-          <ul class="features"><li>Tableau de suivi simple</li><li>Relances email automatiques</li><li>3 relances programmées</li><li>Formation rapide</li></ul>
-          <a href="https://buy.stripe.com/test_8x228q7kPgKyf85ayD6g801" class="btn btn-light" data-stripe-plan="essentiel">Payer et démarrer Essentiel</a>
+          <h3>Gratuit</h3><p>Pour vérifier que le système vous convient.</p>
+          <div class="price"><strong>0 €</strong><br><span>HT/mois, sans carte bancaire</span></div>
+          <ul class="features"><li>3 devis actifs</li><li>5 relances par mois</li><li>1 modèle d’email</li><li>Mode validation manuelle</li><li>Création de compte</li></ul>
+          <a href="compte.html?plan=gratuit" class="btn btn-light">Créer un compte gratuit</a>
+          <p class="payment-note">Idéal pour tester sans engagement.</p>
+        </article>
+        <article class="price-card">
+          <h3>Découverte</h3><p>Pour se lancer sur les devis actifs.</p>
+          <div class="price"><strong>14,90 €</strong><br><span>HT/mois, sans engagement</span></div>
+          <ul class="features"><li>20 devis actifs</li><li>60 relances par mois</li><li>10 modèles d’email</li><li>Mode manuel ou automatique</li><li>Notifications de suivi</li></ul>
+          <a href="https://buy.stripe.com/test_8x228q7kPgKyf85ayD6g801" class="btn btn-light" data-stripe-plan="decouverte">Choisir Découverte</a>
           <p class="payment-note">Paiement sécurisé par Stripe. En continuant, vous acceptez les <a href="conditions-abonnement.html">conditions d’abonnement</a>.</p>
         </article>
         <article class="price-card featured">
-          <h3>Pro</h3><p>Pour obtenir plus de réponses avec email + SMS.</p>
-          <div class="price"><strong>249 €</strong><br><span>HT installation puis 59 € HT/mois</span></div>
-          <ul class="features"><li>Tout le Pack Essentiel</li><li>Relances email + SMS</li><li>5 relances programmées</li><li>Mini-rapport mensuel</li></ul>
-          <a href="https://buy.stripe.com/test_fZubJ0fRl1PEe41dKP6g802" class="btn btn-gold" data-stripe-plan="pro">Payer et démarrer Pro</a>
+          <h3>Pro Humain</h3><p>Pour automatiser sans perdre le contrôle.</p>
+          <div class="price"><strong>24,90 €</strong><br><span>HT/mois, sans engagement</span></div>
+          <ul class="features"><li>Devis actifs illimités</li><li>Relances email illimitées</li><li>SMS de rappel selon volume</li><li>Templates illimités</li><li>Contrôle humain des relances sensibles</li></ul>
+          <a href="https://buy.stripe.com/test_fZubJ0fRl1PEe41dKP6g802" class="btn btn-gold" data-stripe-plan="pro">Choisir Pro Humain</a>
           <p class="payment-note">Pack recommandé. En continuant, vous acceptez les <a href="conditions-abonnement.html">conditions d’abonnement</a>.</p>
         </article>
         <article class="price-card">
-          <h3>Premium</h3><p>Pour exploiter anciens devis, avis et entretiens.</p>
-          <div class="price"><strong>490 €</strong><br><span>HT installation puis 99 € HT/mois</span></div>
-          <ul class="features"><li>Relance des anciens devis</li><li>Demande d’avis Google</li><li>Relance entretien annuel</li><li>Reporting avancé</li></ul>
-          <a href="https://buy.stripe.com/test_7sYcN448Dbqegc9eOT6g803" class="btn btn-light" data-stripe-plan="premium">Payer et démarrer Premium</a>
+          <h3>Premium</h3><p>Pour les artisans avec volume et suivi avancé.</p>
+          <div class="price"><strong>39,90 €</strong><br><span>HT/mois, sans engagement</span></div>
+          <ul class="features"><li>Tout le Pack Pro Humain</li><li>Relance des anciens devis</li><li>Demande d’avis Google</li><li>Rapport mensuel détaillé</li><li>Priorité support humain</li></ul>
+          <a href="https://buy.stripe.com/test_7sYcN448Dbqegc9eOT6g803" class="btn btn-light" data-stripe-plan="premium">Choisir Premium</a>
           <p class="payment-note">Pour les volumes plus élevés. En continuant, vous acceptez les <a href="conditions-abonnement.html">conditions d’abonnement</a>.</p>
         </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="kicker">Pourquoi Devis Relance</span>
+        <h2>Le bon choix si vous voulez que le système tourne vraiment.</h2>
+        <div class="comparison-table" aria-label="Comparaison entre un logiciel autonome et Devis Relance">
+          <div class="comparison-row comparison-head">
+            <div>Critère</div>
+            <div>Outil autonome à petit prix</div>
+            <div>Devis Relance</div>
+          </div>
+          <div class="comparison-row">
+            <div>Installation</div>
+            <div>Vous paramétrez seul.</div>
+            <div>Compte guidé, support français et contrôle humain possible.</div>
+          </div>
+          <div class="comparison-row">
+            <div>Messages</div>
+            <div>Templates à adapter vous-même.</div>
+            <div>Messages assistés, adaptés métier et relisibles avant envoi.</div>
+          </div>
+          <div class="comparison-row">
+            <div>Canaux</div>
+            <div>Principalement email.</div>
+            <div>Email, SMS et suivi manuel selon les plans.</div>
+          </div>
+          <div class="comparison-row">
+            <div>Engagement</div>
+            <div>Très bas prix, mais peu d’accompagnement.</div>
+            <div>Gratuit pour tester, puis abonnement mensuel sans engagement.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <span class="kicker">FAQ Tarifs</span>
+        <h2>Simple à comprendre, simple à arrêter.</h2>
+        <div class="faq-grid">
+          <article class="card"><h3>Y a-t-il des frais d’installation ?</h3><p>Non. Les offres sont maintenant uniquement en abonnement mensuel.</p></article>
+          <article class="card"><h3>Puis-je changer de plan ?</h3><p>Oui, vous pouvez passer sur un plan supérieur ou inférieur selon votre volume de devis.</p></article>
+          <article class="card"><h3>Le compte gratuit est-il limité dans le temps ?</h3><p>Non. Il est limité en volume, pas en durée.</p></article>
+        </div>
       </div>
     </section>
   </main>
