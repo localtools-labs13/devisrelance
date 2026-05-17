@@ -7,6 +7,7 @@
     !config.supabaseAnonKey.includes("REMPLACE_")
   );
   const sessionKey = "devis_relance_session";
+  const adminPreviewKey = "devis_relance_admin_preview";
 
   const planAccess = {
     gratuit: { label: "Gratuit", quoteLimit: 3, followups: 5, sms: false, human: false },
@@ -49,6 +50,14 @@
     container.classList.toggle("error-message", Boolean(isError));
   }
 
+  async function sha256(value) {
+    const bytes = new TextEncoder().encode(value);
+    const hash = await crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(hash))
+      .map(function (byte) { return byte.toString(16).padStart(2, "0"); })
+      .join("");
+  }
+
   function showConfigAlerts() {
     document.querySelectorAll("#auth-config-alert, [data-dashboard-message]").forEach(function (item) {
       item.hidden = false;
@@ -83,8 +92,19 @@
     }
   }
 
+  function getAdminPreview() {
+    try {
+      const session = JSON.parse(sessionStorage.getItem(adminPreviewKey) || "null");
+      if (!session || session.role !== "admin" || session.expires_at < Date.now()) return null;
+      return session;
+    } catch (error) {
+      return null;
+    }
+  }
+
   function clearSession() {
     sessionStorage.removeItem(sessionKey);
+    sessionStorage.removeItem(adminPreviewKey);
   }
 
   function captureSessionFromUrl() {
@@ -128,6 +148,15 @@
 
     showMessage(message, "Lien sécurisé envoyé. Ouvrez l’email pour accéder à votre dashboard.", false);
     form.reset();
+  }
+
+  function demoQuotes() {
+    return [
+      { id: "demo-1", client_name: "Martin", project: "Climatisation maison", amount: 4800, status: "en_cours", channel: "sms", next_followup: "2026-05-20" },
+      { id: "demo-2", client_name: "Bernard", project: "Rénovation salle de bain", amount: 7200, status: "valide", channel: "humain", next_followup: "2026-05-18" },
+      { id: "demo-3", client_name: "Lopez", project: "Peinture appartement", amount: 2100, status: "en_cours", channel: "email", next_followup: "2026-05-17" },
+      { id: "demo-4", client_name: "Durand", project: "Remplacement pompe à chaleur", amount: 6800, status: "en_cours", channel: "email", next_followup: "2026-05-24" }
+    ];
   }
 
   async function getUser(session) {
@@ -212,6 +241,24 @@
 
   async function initDashboard() {
     if (!document.body.matches("[data-dashboard]")) return;
+    const adminPreview = getAdminPreview();
+    if (adminPreview) {
+      const access = planAccess.premium;
+      const quotes = demoQuotes();
+      document.querySelector("[data-plan-name]").textContent = "Admin aperçu";
+      document.querySelector("[data-plan-note]").textContent = "Mode administrateur de test. Données de démonstration uniquement.";
+      document.querySelector("[data-access-quotes]").textContent = "Illimité";
+      document.querySelector("[data-access-followups]").textContent = "Illimité";
+      document.querySelector("[data-access-sms]").textContent = "Oui";
+      document.querySelector("[data-access-human]").textContent = "Oui";
+      renderQuotes(quotes, access);
+      document.querySelector("[data-quote-form]").addEventListener("submit", function (event) {
+        event.preventDefault();
+        alert("Mode admin aperçu : branchez Supabase pour enregistrer de vrais devis.");
+      });
+      return;
+    }
+
     if (!hasSupabase) {
       showConfigAlerts();
       return;
@@ -321,6 +368,36 @@
     });
   }
 
+  function initAdminLogin() {
+    const form = document.querySelector("[data-admin-login]");
+    if (!form) return;
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const message = form.querySelector("[data-auth-message]");
+      if (!config.adminPreviewEnabled) {
+        showMessage(message, "Accès admin désactivé.", true);
+        return;
+      }
+      const data = new FormData(form);
+      const username = String(data.get("username") || "").trim();
+      const password = String(data.get("password") || "");
+      const usernameHash = await sha256(username);
+      const hash = await sha256(password);
+      if (usernameHash !== config.adminPreviewUserHash || hash !== config.adminPreviewPasswordHash) {
+        showMessage(message, "Identifiant ou mot de passe incorrect.", true);
+        return;
+      }
+      sessionStorage.setItem(adminPreviewKey, JSON.stringify({
+        role: "admin",
+        expires_at: Date.now() + 2 * 60 * 60 * 1000
+      }));
+      showMessage(message, "Connexion admin validée. Redirection...", false);
+      window.setTimeout(function () {
+        window.location.href = "dashboard.html";
+      }, 500);
+    });
+  }
+
   document.querySelectorAll("[data-tab-target]").forEach(function (button) {
     button.addEventListener("click", function () {
       document.querySelectorAll("[data-tab-target]").forEach(function (item) { item.classList.remove("active"); });
@@ -331,5 +408,6 @@
   });
 
   initAuthForms();
+  initAdminLogin();
   initDashboard();
 })();

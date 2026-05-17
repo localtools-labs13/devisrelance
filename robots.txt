@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /dashboard.html
+Disallow: /admin.html
+Disallow: /merci.html
+Disallow: /resiliation.html
 
 Sitemap: https://devisrelance.fr/sitemap.xml

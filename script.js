@@ -1,8 +1,7 @@
 const STRIPE_PAYMENT_LINKS = {
-  // Remplacer uniquement ces trois liens par les liens Stripe live des abonnements mensuels.
-  decouverte: "https://buy.stripe.com/test_8x228q7kPgKyf85ayD6g801",
-  pro: "https://buy.stripe.com/test_fZubJ0fRl1PEe41dKP6g802",
-  premium: "https://buy.stripe.com/test_7sYcN448Dbqegc9eOT6g803"
+  decouverte: "",
+  pro: "",
+  premium: ""
 };
 
 function formatEuro(value) {
@@ -45,9 +44,10 @@ document.querySelectorAll("[data-calculator]").forEach(function (calculator) {
 
 document.querySelectorAll("[data-stripe-plan]").forEach(function (link) {
   const plan = link.dataset.stripePlan;
-  const stripeUrl = STRIPE_PAYMENT_LINKS[plan] || link.dataset.stripeUrl || "";
+  const configuredLinks = (window.DEVIS_RELANCE_CONFIG && window.DEVIS_RELANCE_CONFIG.stripePaymentLinks) || {};
+  const stripeUrl = configuredLinks[plan] || STRIPE_PAYMENT_LINKS[plan] || link.dataset.stripeUrl || "";
 
-  if (stripeUrl) {
+  if (stripeUrl && !stripeUrl.includes("test_") && !stripeUrl.includes("REMPLACE_")) {
     link.href = stripeUrl;
     return;
   }
